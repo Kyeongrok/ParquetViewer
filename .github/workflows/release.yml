@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Restore
+        run: dotnet restore src/ParquetViewer/ParquetViewer.csproj
+
+      # framework-dependent: 작은 용량, 대상 PC에 .NET 런타임 필요
+      - name: Publish portable
+        run: >
+          dotnet publish src/ParquetViewer/ParquetViewer.csproj
+          -c Release
+          -r win-x64
+          -o publish/portable
+
+      # self-contained: 런타임 포함, 별도 설치 불필요
+      - name: Publish self-contained
+        run: >
+          dotnet publish src/ParquetViewer/ParquetViewer.csproj
+          -c Release_SelfContained
+          -r win-x64
+          -o publish/selfcontained
+
+      - name: Zip artifacts
+        run: |
+          Compress-Archive -Path publish/portable/*   -DestinationPath "ParquetViewer-${{ github.ref_name }}-portable.zip"
+          Compress-Archive -Path publish/selfcontained/* -DestinationPath "ParquetViewer-${{ github.ref_name }}-selfcontained.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "ParquetViewer ${{ github.ref_name }}"
+          generate_release_notes: true
+          files: |
+            ParquetViewer-${{ github.ref_name }}-portable.zip
+            ParquetViewer-${{ github.ref_name }}-selfcontained.zip
