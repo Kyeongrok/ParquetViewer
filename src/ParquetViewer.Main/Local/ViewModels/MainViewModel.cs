@@ -112,6 +112,7 @@ namespace ParquetViewer.Main.Local.ViewModels
         public bool IsCustomDateFormat => AppSettings.DateTimeDisplayFormat == DateFormat.Custom;
         public bool IsEnglish => AppSettings.UserSelectedCulture is null || AppSettings.UserSelectedCulture.TwoLetterISOLanguageName == "en";
         public bool IsTurkish => AppSettings.UserSelectedCulture?.TwoLetterISOLanguageName == "tr";
+        public bool IsKorean => AppSettings.UserSelectedCulture?.TwoLetterISOLanguageName == "ko";
 
         private List<string>? _selectedFields;
 
@@ -306,8 +307,14 @@ namespace ParquetViewer.Main.Local.ViewModels
         [RelayCommand]
         private void SetLanguage(string? cultureName)
         {
-            if (!UtilityMethods.TryParseCultureInfo(cultureName ?? "en-US", out var newCulture)) return;
-            if (newCulture.Equals(System.Globalization.CultureInfo.CurrentUICulture)) return;
+            // empty/null means English (default) — stored as null in AppSettings
+            System.Globalization.CultureInfo? newCulture = null;
+            if (!string.IsNullOrWhiteSpace(cultureName))
+            {
+                if (!UtilityMethods.TryParseCultureInfo(cultureName, out newCulture)) return;
+            }
+
+            if (newCulture?.Name == AppSettings.UserSelectedCulture?.Name) return;
 
             if (MessageBox.Show(
                 Resources.Strings.LanguageChangeConfirmationMessage,

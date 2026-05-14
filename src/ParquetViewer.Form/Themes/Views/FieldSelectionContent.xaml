@@ -10,8 +10,36 @@
                 <ControlTemplate TargetType="{x:Type views:FieldSelectionContent}">
                     <DockPanel Background="{DynamicResource WindowBackgroundBrush}" LastChildFill="True">
 
-                        <!--  Filter row  -->
-                        <Grid Margin="8,8,8,4" DockPanel.Dock="Top">
+                        <!--  Row 1: All Fields radio + Remember My Choice checkbox  -->
+                        <Grid Margin="8,10,8,4" DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton
+                                Grid.Column="0"
+                                Content="All Fields"
+                                Foreground="{DynamicResource ForegroundBrush}"
+                                IsChecked="{Binding LoadAllFields}" />
+                            <CheckBox
+                                Grid.Column="1"
+                                Margin="20,0,0,0"
+                                Content="Remember My Choice"
+                                Foreground="{DynamicResource ForegroundBrush}"
+                                IsChecked="{Binding RememberChoice}"
+                                IsEnabled="{Binding LoadAllFields}" />
+                        </Grid>
+
+                        <!--  Row 2: Selected Fields radio  -->
+                        <RadioButton
+                            Margin="8,2,8,8"
+                            Content="{Binding SelectedFieldCountText}"
+                            DockPanel.Dock="Top"
+                            Foreground="{DynamicResource ForegroundBrush}"
+                            IsChecked="{Binding LoadSelectedFields}" />
+
+                        <!--  Row 3: Search box + X button  -->
+                        <Grid Margin="8,0,8,4" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -20,34 +48,20 @@
                                 Grid.Column="0"
                                 Margin="0,0,4,0"
                                 VerticalContentAlignment="Center"
+                                IsEnabled="{Binding LoadSelectedFields}"
                                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
                             <Button
                                 Grid.Column="1"
-                                Padding="8,3"
+                                Width="28"
+                                Padding="4,3"
                                 Command="{Binding ClearFilterCommand}"
-                                Content="Clear" />
+                                Content="X"
+                                IsEnabled="{Binding LoadSelectedFields}" />
                         </Grid>
 
-                        <!--  Load mode radio buttons  -->
-                        <StackPanel
-                            Margin="8,0,8,4"
-                            DockPanel.Dock="Top"
-                            Orientation="Vertical">
-                            <RadioButton
-                                Margin="0,2"
-                                Content="Load all fields"
-                                Foreground="{DynamicResource ForegroundBrush}"
-                                IsChecked="{Binding LoadAllFields}" />
-                            <RadioButton
-                                Margin="0,2"
-                                Content="{Binding SelectedFieldCountText}"
-                                Foreground="{DynamicResource ForegroundBrush}"
-                                IsChecked="{Binding LoadSelectedFields}" />
-                        </StackPanel>
-
-                        <!--  Select All checkbox  -->
+                        <!--  Row 4: Select All checkbox  -->
                         <CheckBox
-                            Margin="8,0,8,4"
+                            Margin="8,2,8,6"
                             Content="{Binding SelectAllCheckboxText}"
                             DockPanel.Dock="Top"
                             Foreground="{DynamicResource ForegroundBrush}"
@@ -55,35 +69,25 @@
                             IsEnabled="{Binding LoadSelectedFields}" />
 
                         <!--  Bottom buttons  -->
-                        <Grid Margin="8,4,8,8" DockPanel.Dock="Bottom">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="8" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <CheckBox
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="Always load all fields"
-                                Foreground="{DynamicResource ForegroundBrush}"
-                                IsChecked="{Binding RememberChoice}"
-                                IsEnabled="{Binding LoadAllFields}" />
+                        <StackPanel
+                            Margin="8,6,8,8"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
                             <Button
-                                Grid.Column="1"
                                 MinWidth="75"
+                                Margin="0,0,8,0"
                                 Padding="8,3"
                                 Command="{Binding ConfirmCommand}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                                 Content="Done" />
                             <Button
-                                Grid.Column="3"
                                 MinWidth="75"
                                 Padding="8,3"
                                 Command="{Binding CancelCommand}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                                 Content="Cancel" />
-                        </Grid>
+                        </StackPanel>
 
                         <!--  Field list  -->
                         <Border
@@ -116,7 +120,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="{x:Type vm:FieldItem}">
                                         <CheckBox
-                                            Padding="4,2"
+                                            Padding="4,3"
                                             Content="{Binding Name}"
                                             Foreground="{DynamicResource ForegroundBrush}"
                                             IsChecked="{Binding IsSelected}"

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LoadedRecordCountRangeFormat" xml:space="preserve">
+    <value>{0} ~ {1}</value>
+  </data>
+  <data name="LoadingDataLabelText" xml:space="preserve">
+    <value>데이터 불러오는 중</value>
+  </data>
+  <data name="CancelInitiatedLabelText" xml:space="preserve">
+    <value>취소 중...</value>
+  </data>
+  <data name="ExportingDataLabelText" xml:space="preserve">
+    <value>내보내는 중</value>
+  </data>
+  <data name="IndexingDataLabelText" xml:space="preserve">
+    <value>인덱싱 중</value>
+  </data>
+  <data name="PrivacyPolicyLabelText" xml:space="preserve">
+    <value>개인정보 처리방침</value>
+  </data>
+  <data name="InvalidDateFormatErrorText" xml:space="preserve">
+    <value>잘못된 날짜 형식</value>
+  </data>
+  <data name="TooManyFieldsErrorFormat" xml:space="preserve">
+    <value>필드가 너무 많습니다: {0}</value>
+  </data>
+  <data name="UnsupportedFieldCountTextFormat" xml:space="preserve">
+    <value>미지원: {0}</value>
+  </data>
+  <data name="SelectAllCheckmarkTextFormat" xml:space="preserve">
+    <value>전체 선택 (개수: {0})</value>
+  </data>
+  <data name="DeselectAllCheckmarkTextFormat" xml:space="preserve">
+    <value>전체 해제 (개수: {0})</value>
+  </data>
+  <data name="ThriftMetadataCopiedToClipboardMessage" xml:space="preserve">
+    <value>Thrift 원시 메타데이터가 클립보드에 복사되었습니다.</value>
+  </data>
+  <data name="SaveRawMetadataToFileDialogTitle" xml:space="preserve">
+    <value>원시 메타데이터 저장</value>
+  </data>
+  <data name="MetadataSuccessfullyExportedToFileMessageFormat" xml:space="preserve">
+    <value>메타데이터를 성공적으로 내보냈습니다: {0}</value>
+  </data>
+  <data name="MetadataSuccessfullyExportedToFileMessageTitle" xml:space="preserve">
+    <value>내보내기 완료</value>
+  </data>
+  <data name="MainWindowOpenFileTitleFormat" xml:space="preserve">
+    <value>파일: {0}</value>
+  </data>
+  <data name="MainWindowOpenFolderTitleFormat" xml:space="preserve">
+    <value>폴더: {0}</value>
+  </data>
+  <data name="QuerySyntaxHelpText" xml:space="preserve">
+    <value>NULL 확인:
+    WHERE field_name IS NULL
+    WHERE field_name IS NOT NULL
+날짜/시간:
+    WHERE field_name &gt;= #2000-12-31#
+    WHERE field_name = #2000-01-13 01:00:00#
+숫자:
+    WHERE field_name &lt;= 123.4
+    WHERE (field1 * field2) / 100 &gt; 0.1
+문자열:
+    WHERE field_name LIKE '%value%'
+    WHERE field_name = 'equals value'
+    WHERE field_name &lt;&gt; 'not equals'
+IN 확인:
+    WHERE field_name IN (value1, value2)
+    WHERE field_name NOT IN (value3, value4)
+복합 조건:
+    WHERE (field_1 = 0 AND field_2 &lt;&gt; 'value') OR field_3 IS NULL
+
+자세한 내용은 '도움말 → 사용자 가이드'를 참조하세요.</value>
+  </data>
+  <data name="QuerySyntaxHelpTitle" xml:space="preserve">
+    <value>필터 쿼리 문법 예시</value>
+  </data>
+  <data name="RecordsToBeExportedTitleFormat" xml:space="preserve">
+    <value>{0}개 레코드를 내보냅니다</value>
+  </data>
+  <data name="ExportCancelledMessage" xml:space="preserve">
+    <value>내보내기가 취소되었습니다</value>
+  </data>
+  <data name="ExportCancelledTitle" xml:space="preserve">
+    <value>내보내기 취소됨</value>
+  </data>
+  <data name="ExportSuccessfulMessageFormat" xml:space="preserve">
+    <value>내보내기 완료!
+
+파일 크기: {0} MB</value>
+  </data>
+  <data name="ExportSuccessfulTitle" xml:space="preserve">
+    <value>성공</value>
+  </data>
+  <data name="SwitchFromXlsToXlsxMessageFormat" xml:space="preserve">
+    <value>{1} 파일은 셀당 최대 {0}자를 지원합니다.
+
+대신 {2} 파일로 전환하시겠습니까?</value>
+  </data>
+  <data name="SwitchFromXlsToXlsxMessageTitle" xml:space="preserve">
+    <value>데이터가 너무 큽니다 - 내보내기 형식을 변경하시겠습니까?</value>
+  </data>
+  <data name="CreateTableScriptCopiedToClipboardMessage" xml:space="preserve">
+    <value>CREATE TABLE 스크립트가 클립보드에 복사되었습니다!</value>
+  </data>
+  <data name="CreateTableScriptFailedWithNoFieldsMessage" xml:space="preserve">
+    <value>SQL 스크립트를 생성하려면 먼저 필드를 선택해 주세요</value>
+  </data>
+  <data name="CopyToClipboardText" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CopyToClipboardWithHeadersText" xml:space="preserve">
+    <value>헤더 포함 복사</value>
+  </data>
+  <data name="CopyAsWhereConditionText" xml:space="preserve">
+    <value>WHERE 조건으로 복사...</value>
+  </data>
+  <data name="DecimalScientificFormatting" xml:space="preserve">
+    <value>지수 표기</value>
+  </data>
+  <data name="DimensionsText" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="TypeText" xml:space="preserve">
+    <value>유형</value>
+  </data>
+  <data name="SaveImageToFileButtonTextFormat" xml:space="preserve">
+    <value>{0}으로 저장</value>
+  </data>
+  <data name="CantGoBackLinkButtonText" xml:space="preserve">
+    <value>돌아갈 수 없음</value>
+  </data>
+  <data name="SaveImageAsButtonText" xml:space="preserve">
+    <value>{0}으로 이미지 저장</value>
+  </data>
+  <data name="ImageSavedToDiskMessage" xml:space="preserve">
+    <value>이미지가 {0}에 저장되었습니다</value>
+  </data>
+  <data name="ImageSavedToDiskTitle" xml:space="preserve">
+    <value>저장 완료</value>
+  </data>
+  <data name="DecimalFormatting" xml:space="preserve">
+    <value>소수</value>
+  </data>
+  <data name="LanguageChangeConfirmationTitle" xml:space="preserve">
+    <value>ParquetViewer를 재시작하시겠습니까?</value>
+  </data>
+  <data name="LanguageChangeConfirmationMessage" xml:space="preserve">
+    <value>언어를 변경하려면 앱을 재시작해야 합니다. 계속하시겠습니까?</value>
+  </data>
+  <data name="DotNetDateFormatHelpUrl" xml:space="preserve">
+    <value>https://docs.microsoft.com/ko-kr/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="AnalyticsConsentPromptMessage" xml:space="preserve">
+    <value>ParquetViewer 개선을 위해 익명 사용 데이터를 공유하시겠습니까?
+
+이 설정은 나중에 도움말 메뉴에서 변경할 수 있습니다.</value>
+  </data>
+  <data name="AnalyticsConsentPromptTitle" xml:space="preserve">
+    <value>익명 사용 데이터 공유</value>
+  </data>
+  <data name="FileExtensionAssociationPromptMessageFormat" xml:space="preserve">
+    <value>ParquetViewer를 .parquet 파일의 기본 앱으로 설정하시겠습니까?
+
+실행 파일 경로: {0}
+
+도움말 → 정보 페이지에서도 이 설정을 변경할 수 있습니다.</value>
+  </data>
+  <data name="FileExtensionAssociationPromptTitle" xml:space="preserve">
+    <value>ParquetViewer 파일 연결 요청</value>
+  </data>
+  <data name="FileExtensionAssociationCancelledMessage" xml:space="preserve">
+    <value>파일 연결이 취소되었습니다. .parquet 파일 연결을 변경하려면 도움말 → 정보 페이지를 방문하세요.</value>
+  </data>
+  <data name="FileExtensionAssociationCancelledTitle" xml:space="preserve">
+    <value>파일 연결 취소됨</value>
+  </data>
+  <data name="FileExtensionAssociationFailedMessageFormat" xml:space="preserve">
+    <value>오류가 발생했습니다 (오류 코드: {0}).
+
+도움말 → 정보 페이지에서 다시 시도해 주세요.</value>
+  </data>
+  <data name="FileExtensionAssociationFailedTitle" xml:space="preserve">
+    <value>파일 연결 실패</value>
+  </data>
+  <data name="FileExtensionAssociationSucceededMessage" xml:space="preserve">
+    <value>성공! ParquetViewer가 .parquet 파일의 기본 앱으로 설정되었습니다.</value>
+  </data>
+  <data name="FileExtensionAssociationSucceededTitle" xml:space="preserve">
+    <value>파일 연결 성공</value>
+  </data>
+  <data name="DarkModePromptMessage" xml:space="preserve">
+    <value>ParquetViewer를 다크 모드로 사용하시겠습니까?
+
+편집 메뉴에서 언제든지 켜고 끌 수 있습니다.</value>
+  </data>
+  <data name="DarkModePromptTitle" xml:space="preserve">
+    <value>다크 모드로 전환하시겠습니까?</value>
+  </data>
+  <data name="QueryRunningStatusText" xml:space="preserve">
+    <value>실행 중:</value>
+  </data>
+  <data name="QueryFinishedStatusText" xml:space="preserve">
+    <value>완료:</value>
+  </data>
+  <data name="QueryZoomStatusTextFormat" xml:space="preserve">
+    <value>쿼리 확대/축소: {0}%</value>
+  </data>
+  <data name="ByteArraysNotSupportedErrorMessage" xml:space="preserve">
+    <value>현재 쿼리 결과에서 byte[] 형식은 지원되지 않습니다. 값은 null로 표시됩니다.</value>
+  </data>
+  <data name="ByteArraysNotSupportedErrorTitle" xml:space="preserve">
+    <value>바이트 배열 미지원</value>
+  </data>
+  <data name="FrozenColumnText" xml:space="preserve">
+    <value>고정</value>
+  </data>
+</root>

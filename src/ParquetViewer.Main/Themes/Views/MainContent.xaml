@@ -78,6 +78,12 @@
                                         Header="Türkçe"
                                         IsCheckable="True"
                                         IsChecked="{Binding IsTurkish, Mode=OneWay}" />
+                                    <MenuItem
+                                        Command="{Binding SetLanguageCommand}"
+                                        CommandParameter="ko-KR"
+                                        Header="한국어"
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsKorean, Mode=OneWay}" />
                                 </MenuItem>
                             </MenuItem>
 
