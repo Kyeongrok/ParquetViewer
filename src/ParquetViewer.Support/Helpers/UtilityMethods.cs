@@ -1,0 +1,136 @@
+﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
+using System.Windows;
+
+namespace ParquetViewer.Helpers
+{
+    public static class UtilityMethods
+    {
+        /// <summary>
+        /// Formats a value to make it is RFC-4180 compliant
+        /// </summary>
+        /// <param name="value">Raw string value to be added to a CSV file</param>
+        /// <returns>Possibly formatted value</returns>
+        public static string CleanCSVValue(string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                //Escape quotes with double quotes
+                string formattedValue = value.Replace("\"", "\"\"");
+
+                //Enclose value with quotes if it contains commas, line feeds, or other quotes
+                foreach (char c in formattedValue)
+                {
+                    if (c == ',' || c == '\r' || c == '\n' || c == '\"')
+                    {
+                        formattedValue = string.Concat("\"", formattedValue, "\"");
+                        break;
+                    }
+                }
+
+                return formattedValue;
+            }
+            else
+                return string.Empty;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="FileType"/> if a matching one is found for a given file extension.
+        /// </summary>
+        /// <param name="extension">File extension in ".xyz" format</param>
+        /// <returns>null if no matching file type is found</returns>
+        public static FileType? ExtensionToFileType(string extension)
+        {
+            foreach (FileType fileType in Enum.GetValues(typeof(FileType)))
+            {
+                if (fileType.GetExtension().Equals(extension))
+                    return fileType;
+            }
+            return null;
+        }
+
+        public static bool IsValidDateFormat(string? dateFormat)
+        {
+            if (string.IsNullOrWhiteSpace(dateFormat))
+                return false;
+
+            try
+            {
+                DateTime.UtcNow.ToString(dateFormat);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool TryParseCultureInfo(string? cultureString, [NotNullWhen(true)] out CultureInfo? cultureInfo)
+        {
+            if (string.IsNullOrWhiteSpace(cultureString))
+                throw new ArgumentNullException(nameof(cultureString));
+
+            try
+            {
+                cultureInfo = new CultureInfo(cultureString);
+                return true;
+            }
+            catch (CultureNotFoundException)
+            {
+                cultureInfo = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Starts a new ParquetViewer instance and terminates the current one.
+        /// </summary>
+        public static void RestartApplication()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                UseShellExecute = true,
+                FileName = Assembly.GetEntryAssembly()?.Location ?? Environment.ProcessPath ?? string.Empty
+            };
+            Process.Start(startInfo);
+            Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Best effort attempt at stripping time components from a datetime format string.
+        /// </summary>
+        /// <param name="dateFormat">Date format with potential time components</param>
+        /// <returns>Date format with no time components</returns>
+        public static string StripTimeComponentsFromDateTimeFormat(string dateFormat)
+        {
+            var timeComponents = new string[] { "H", "h", "m", "s", "f", "F", "t", "z", "K" };
+            foreach (var component in timeComponents)
+            {
+                dateFormat = dateFormat.Replace(component, string.Empty);
+            }
+            dateFormat = dateFormat.Replace("  ", " ");
+            dateFormat = dateFormat.TrimEnd('/', '-', '.', ' ', ',', '_');
+            return dateFormat.Trim();
+        }
+
+        /// <summary>
+        /// Best effort attempt at stripping date components from a datetime format string.
+        /// </summary>
+        /// <param name="dateFormat">Date format with potential date components</param>
+        /// <returns>Time format with no date components</returns>
+        public static string StripDateComponentsFromDateTimeFormat(string dateFormat)
+        {
+            var dateComponents = new string[] { "y", "M", "d", "g" };
+            foreach (var component in dateComponents)
+            {
+                dateFormat = dateFormat.Replace(component, string.Empty);
+            }
+            dateFormat = dateFormat.Replace("  ", " ");
+            dateFormat = dateFormat.TrimStart('/', '-', '.', ' ', ',', '_');
+            return dateFormat.Trim();
+        }
+    }
+}

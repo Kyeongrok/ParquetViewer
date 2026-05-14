@@ -1,0 +1,62 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:units="clr-namespace:ParquetViewer.Support.UI.Units">
+
+    <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type units:ParquetDataGrid}">
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GridBorderBrush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource GridBorderBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource GridBorderBrush}" />
+        <Setter Property="RowBackground" Value="{DynamicResource GridCellBackgroundBrush}" />
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource GridAlternateRowBrush}" />
+        <Setter Property="SelectionMode" Value="Extended" />
+        <Setter Property="SelectionUnit" Value="CellOrRowHeader" />
+        <Setter Property="EnableRowVirtualization" Value="True" />
+        <Setter Property="EnableColumnVirtualization" Value="True" />
+        <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True" />
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="{DynamicResource GridHeaderBackgroundBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource GridHeaderForegroundBrush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource GridBorderBrush}" />
+                    <Setter Property="BorderThickness" Value="0,0,1,1" />
+                    <Setter Property="Padding" Value="6,3" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding" Value="4,2" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource GridSelectionBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource GridSelectionForegroundBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

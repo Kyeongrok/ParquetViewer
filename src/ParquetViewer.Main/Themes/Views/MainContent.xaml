@@ -1,0 +1,249 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:units="clr-namespace:ParquetViewer.Support.UI.Units;assembly=ParquetViewer.Support"
+    xmlns:views="clr-namespace:ParquetViewer.Main.UI.Views">
+
+    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+    <Style TargetType="{x:Type views:MainContent}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type views:MainContent}">
+                    <DockPanel Background="{DynamicResource WindowBackgroundBrush}">
+
+                        <!--  Menu bar  -->
+                        <Menu
+                            Background="{DynamicResource MenuBackgroundBrush}"
+                            DockPanel.Dock="Top"
+                            Foreground="{DynamicResource ForegroundBrush}">
+
+                            <!--  File  -->
+                            <MenuItem Header="_File">
+                                <MenuItem Command="{Binding NewFileCommand}" Header="_New" />
+                                <MenuItem Command="{Binding OpenFileCommand}" Header="_Open File..." />
+                                <MenuItem Command="{Binding OpenFolderCommand}" Header="Open _Folder..." />
+                                <Separator />
+                                <MenuItem Command="{Binding SaveAsCommand}" Header="_Save As..." />
+                                <Separator />
+                                <MenuItem Command="{Binding ExitCommand}" Header="E_xit" />
+                            </MenuItem>
+
+                            <!--  Edit  -->
+                            <MenuItem Header="_Edit">
+                                <MenuItem Command="{Binding ChangeFieldsCommand}" Header="Change _Fields..." />
+                                <Separator />
+                                <MenuItem Header="Date _Format">
+                                    <MenuItem
+                                        Command="{Binding SetDateFormatCommand}"
+                                        CommandParameter="0"
+                                        Header="_Default"
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsDefaultDateFormat, Mode=OneWay}" />
+                                    <MenuItem
+                                        Command="{Binding SetDateFormatCommand}"
+                                        CommandParameter="2"
+                                        Header="_ISO 8601"
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsIso8601DateFormat, Mode=OneWay}" />
+                                    <MenuItem
+                                        Command="{Binding SetDateFormatCommand}"
+                                        CommandParameter="6"
+                                        Header="_Custom..."
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsCustomDateFormat, Mode=OneWay}" />
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem
+                                    Command="{Binding ToggleAlwaysLoadAllRecordsCommand}"
+                                    Header="_Always Load All Records"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding AlwaysLoadAllRecords, Mode=OneWay}" />
+                                <MenuItem
+                                    Command="{Binding ToggleDarkModeCommand}"
+                                    Header="_Dark Mode"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding IsDarkMode, Mode=OneWay}" />
+                                <Separator />
+                                <MenuItem Header="_Language">
+                                    <MenuItem
+                                        Command="{Binding SetLanguageCommand}"
+                                        CommandParameter=""
+                                        Header="English"
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsEnglish, Mode=OneWay}" />
+                                    <MenuItem
+                                        Command="{Binding SetLanguageCommand}"
+                                        CommandParameter="tr-TR"
+                                        Header="Türkçe"
+                                        IsCheckable="True"
+                                        IsChecked="{Binding IsTurkish, Mode=OneWay}" />
+                                </MenuItem>
+                            </MenuItem>
+
+                            <!--  Tools  -->
+                            <MenuItem Header="_Tools">
+                                <MenuItem Command="{Binding GetSqlCreateTableScriptCommand}" Header="Get SQL CREATE TABLE Script" />
+                                <MenuItem Command="{Binding ShowMetadataCommand}" Header="_Metadata Viewer..." />
+                            </MenuItem>
+
+                            <!--  Help  -->
+                            <MenuItem Header="_Help">
+                                <MenuItem Command="{Binding OpenUserGuideCommand}" Header="_User Guide" />
+                                <Separator />
+                                <MenuItem
+                                    Command="{Binding ToggleAnalyticsConsentCommand}"
+                                    Header="Share Anonymous Usage Data"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding AnalyticsConsent, Mode=OneWay}" />
+                                <Separator />
+                                <MenuItem Command="{Binding ShowAboutCommand}" Header="_About..." />
+                            </MenuItem>
+                        </Menu>
+
+                        <!--  Filter / pagination row  -->
+                        <Grid
+                            Margin="4,4,4,2"
+                            Background="{DynamicResource PanelBackgroundBrush}"
+                            DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                                Grid.Column="0"
+                                Margin="0,0,4,0"
+                                VerticalContentAlignment="Center"
+                                AcceptsReturn="False"
+                                IsEnabled="{Binding IsAnyFileOpen}"
+                                Text="{Binding SearchFilter, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding RunQueryCommand}" />
+                                    <KeyBinding Key="Escape" Command="{Binding ClearFilterCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+
+                            <Button
+                                Grid.Column="1"
+                                Margin="0,0,4,0"
+                                Padding="8,3"
+                                Command="{Binding RunQueryCommand}"
+                                Content="Run Query"
+                                IsEnabled="{Binding IsAnyFileOpen}" />
+
+                            <Button
+                                Grid.Column="2"
+                                Padding="8,3"
+                                Command="{Binding ClearFilterCommand}"
+                                Content="Clear"
+                                IsEnabled="{Binding IsAnyFileOpen}" />
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Text="Offset:" />
+
+                            <TextBox
+                                Grid.Column="5"
+                                Width="70"
+                                Margin="0,0,8,0"
+                                VerticalContentAlignment="Center"
+                                IsEnabled="{Binding IsAnyFileOpen}"
+                                Text="{Binding CurrentOffset, UpdateSourceTrigger=LostFocus}" />
+
+                            <TextBox
+                                Grid.Column="6"
+                                Width="70"
+                                Margin="0,0,4,0"
+                                VerticalContentAlignment="Center"
+                                IsEnabled="{Binding IsAnyFileOpen}"
+                                Text="{Binding CurrentMaxRowCount, UpdateSourceTrigger=LostFocus}" />
+
+                            <Button
+                                Grid.Column="7"
+                                Padding="6,3"
+                                Command="{Binding LoadAllRowsCommand}"
+                                Content="▶"
+                                ToolTip="Load all rows (Ctrl+E)" />
+                        </Grid>
+
+                        <!--  Status bar  -->
+                        <StatusBar
+                            Background="{DynamicResource StatusBarBackgroundBrush}"
+                            DockPanel.Dock="Bottom"
+                            Foreground="{DynamicResource StatusBarForegroundBrush}">
+                            <StatusBarItem>
+                                <TextBlock Text="Showing" />
+                            </StatusBarItem>
+                            <StatusBarItem>
+                                <TextBlock Text="{Binding RecordCountText}" />
+                            </StatusBarItem>
+                            <Separator />
+                            <StatusBarItem>
+                                <TextBlock Text="of" />
+                            </StatusBarItem>
+                            <StatusBarItem>
+                                <TextBlock Text="{Binding TotalRowCountText}" />
+                            </StatusBarItem>
+                            <Separator />
+                            <StatusBarItem>
+                                <TextBlock Text="{Binding ActualShownRecordCount}" />
+                            </StatusBarItem>
+                            <StatusBarItem>
+                                <TextBlock Text="rows" ToolTip="{Binding PerformanceTooltip}" />
+                            </StatusBarItem>
+                        </StatusBar>
+
+                        <!--  DataGrid + loading overlay  -->
+                        <Grid>
+                            <units:ParquetDataGrid
+                                AllowDrop="True"
+                                ItemsSource="{Binding DataView}"
+                                RowFilter="{Binding SearchFilter}" />
+
+                            <Border Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Border
+                                    Width="300"
+                                    Padding="24,18"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="{DynamicResource WindowBackgroundBrush}"
+                                    BorderBrush="{DynamicResource GridBorderBrush}"
+                                    BorderThickness="1">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="0,0,0,14"
+                                            HorizontalAlignment="Center"
+                                            FontSize="13"
+                                            FontWeight="SemiBold"
+                                            Foreground="{DynamicResource ForegroundBrush}"
+                                            Text="Loading Data" />
+                                        <ProgressBar
+                                            Height="22"
+                                            Margin="0,0,0,12"
+                                            IsIndeterminate="True" />
+                                        <Button
+                                            Padding="8,5"
+                                            HorizontalAlignment="Stretch"
+                                            Command="{Binding CancelLoadCommand}"
+                                            Content="Cancel" />
+                                    </StackPanel>
+                                </Border>
+                            </Border>
+                        </Grid>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
