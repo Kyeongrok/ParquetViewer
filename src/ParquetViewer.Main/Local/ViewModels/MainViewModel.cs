@@ -30,6 +30,7 @@ namespace ParquetViewer.Main.Local.ViewModels
         private const int DefaultRowCount = 1000;
 
         private readonly IFieldSelectionService _fieldSelectionService;
+        private readonly IMetadataService _metadataService;
         private IParquetEngine? _openParquetEngine;
 
         [ObservableProperty] private string _title = "Parquet Viewer";
@@ -114,9 +115,10 @@ namespace ParquetViewer.Main.Local.ViewModels
 
         private List<string>? _selectedFields;
 
-        public MainViewModel(IFieldSelectionService fieldSelectionService)
+        public MainViewModel(IFieldSelectionService fieldSelectionService, IMetadataService metadataService)
         {
             _fieldSelectionService = fieldSelectionService;
+            _metadataService = metadataService;
         }
 
         partial void OnSearchFilterChanged(string value)
@@ -319,8 +321,9 @@ namespace ParquetViewer.Main.Local.ViewModels
         [RelayCommand(CanExecute = nameof(IsAnyFileOpen))]
         private void ShowMetadata()
         {
-            // Handled by the view layer via event/message
+            if (_openParquetEngine is null) return;
             MenuBarClickEvent.FireAndForget(MenuBarClickEvent.ActionId.MetadataViewer);
+            _metadataService.Show(_openParquetEngine);
         }
 
         [RelayCommand(CanExecute = nameof(IsAnyFileOpen))]

@@ -36,7 +36,7 @@ namespace ParquetViewer.Support.UI.Units
         protected override void OnAutoGeneratingColumn(DataGridAutoGeneratingColumnEventArgs e)
         {
             base.OnAutoGeneratingColumn(e);
-            e.Column.MaxWidth = 400;
+            e.Column.Width = new DataGridLength(200);
         }
 
         protected override void OnItemsSourceChanged(System.Collections.IEnumerable oldValue, System.Collections.IEnumerable newValue)
@@ -44,9 +44,7 @@ namespace ParquetViewer.Support.UI.Units
             base.OnItemsSourceChanged(oldValue, newValue);
 
             if (newValue is DataView view && !string.IsNullOrEmpty(RowFilter))
-            {
                 view.RowFilter = RowFilter;
-            }
         }
     }
 }

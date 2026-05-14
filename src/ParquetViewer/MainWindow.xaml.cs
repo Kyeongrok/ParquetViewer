@@ -14,7 +14,8 @@ namespace ParquetViewer
             InitializeComponent();
 
             var service = new Services.FieldSelectionService(this);
-            _viewModel = new MainViewModel(service);
+            var metadataService = new Services.MetadataService(this);
+            _viewModel = new MainViewModel(service, metadataService);
             DataContext = _viewModel;
 
             AllowDrop = true;

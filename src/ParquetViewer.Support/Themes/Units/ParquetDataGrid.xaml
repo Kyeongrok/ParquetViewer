@@ -20,7 +20,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="ColumnHeaderStyle">
             <Setter.Value>
-                <Style TargetType="DataGridColumnHeader">
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="{DynamicResource GridHeaderBackgroundBrush}" />
                     <Setter Property="Foreground" Value="{DynamicResource GridHeaderForegroundBrush}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource GridBorderBrush}" />
